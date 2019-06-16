@@ -1,3 +1,2 @@
-from app.twitterbot import TwitterBot
-import pytest
-
+# from app.twitterbot import TwitterBot
+# import pytest
