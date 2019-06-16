@@ -24,4 +24,4 @@ def test_create_api_object(bot):
 
 def test_verify_twitter_credentials(bot):
     assert bot.verify_twitter_credentials() == \
-           "Error during auth: 'NoneType' object has no attribute 'verify_credentials'"
+        "Error during auth: 'NoneType' object has no attribute 'verify_credentials'"
