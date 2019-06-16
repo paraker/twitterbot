@@ -29,8 +29,6 @@ jobs:  # Any jobs we want circleci to do
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
-#            - "/usr/local/bin"
-#            - "/usr/local/lib/python3.7/site-packages"
 
       - run:
           name: run tests  # Just a name
