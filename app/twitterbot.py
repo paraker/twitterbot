@@ -11,9 +11,6 @@ class TwitterBot:
         self.tweets_listener = None
         self.stream = None
 
-        self.twitter_auth()
-        self.create_api_object()
-
     def twitter_auth(self):
         # Authenticate to Twitter
         self._auth = tweepy.OAuthHandler(
@@ -63,7 +60,7 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, tweet):
         print(f'{tweet.user.name}:{tweet.text}')
         self.counter += 1
-        if self.counter > 9:
+        if self.counter > 1:
             return False
 
     def on_error(self, status_code):
@@ -77,8 +74,9 @@ if __name__ == '__main__':
     with open('keys.json', 'r') as file:
         auth_keys = json.load(file)
 
-    # Create twitterbot object
-    twitter_bot = TwitterBot(auth_keys)
+    twitter_bot = TwitterBot(auth_keys)  # Create twitterbot object
+    twitter_bot.twitter_auth()  # Auth with twitter
+    twitter_bot.create_api_object()  # Create api object
 
     # Check credentials
     print(twitter_bot.verify_twitter_credentials())
