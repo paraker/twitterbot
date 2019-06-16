@@ -1,0 +1,37 @@
+# Python CircleCI 2.0 configuration file
+
+version: 2  # Version of circleci api
+
+jobs:  # Any jobs we want circleci to do
+  build:  # Mandatory job that must be included
+    docker:  # Go to docker
+      - image: circleci/python:3.7  # Load a prebaked python3.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    working_directory: ~/repo  # Create temp working directory in the container to store our files
+
+    steps:
+      - checkout  # Checkout repo from github
+
+      - run:
+          name: install dependencies  # Just a name
+          # Create virtual environment
+          # Activate environment
+          # Install packages in Pipfile
+          command: |
+            pipenv install
+
+      - run:
+          name: run tests  # Just a name
+          # Activate pipenv, must use this syntax rather than "pipenv shell"
+          # Run PEP8 test with flake8. Avoid docker site-packages by specifying directory to look in
+          # Run our custom tests, only on our calculator file, include file coverage. Look in our calculator.py only
+          command: |
+            . $(pipenv --venv)/bin/activate
+            flake8 app/*.py --statistics
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
