@@ -40,6 +40,7 @@ jobs:  # Any jobs we want circleci to do
           command: |
             . $(pipenv --venv)/bin/activate
             flake8 app/*.py tests/*.py --statistics --ignore E501
+            python3 -m pytest -v --cov=app.twitterbot
 
 workflows:
   version: 2
