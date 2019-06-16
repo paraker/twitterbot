@@ -8,6 +8,8 @@ class TwitterBot:
         self._auth = None
         self.api = None
         self.timeline = None
+        self.tweets_listener = None
+        self.stream = None
 
         self.twitter_auth()
         self.create_api_object()
@@ -43,6 +45,32 @@ class TwitterBot:
         for tweet in self.timeline:
             print(f'{tweet.user.name} said {tweet.text}')
 
+    def start_stream_listener(self):
+        self.tweets_listener = MyStreamListener(self.api)  # Instantiate stream listener
+        self.stream = tweepy.Stream(self.api.auth, self.tweets_listener)  # Instantiate Stream
+
+
+class MyStreamListener(tweepy.StreamListener):
+    """
+    On run: event loop style stream listener printing matched tweets to stdout
+    """
+
+    def __init__(self, api):
+        self.api = api
+        self.me = api.me()
+        self.counter = 0
+
+    def on_status(self, tweet):
+        print(f'{tweet.user.name}:{tweet.text}')
+        self.counter += 1
+        if self.counter > 9:
+            return False
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            return False
+        print('error detected')
+
 
 if __name__ == '__main__':
     # Read authentication keys
@@ -56,19 +84,26 @@ if __name__ == '__main__':
     print(twitter_bot.verify_twitter_credentials())
 
     # Get my profile's timeline's latest tweets
-    twitter_bot.print_home_timeline()
+    # twitter_bot.print_home_timeline()
 
     # Create a tweet from a python string
     # twitter_bot.api.update_status("Test Tweet from Tweepy Python")
 
     # get_user() returns an object containing user details.
     # This returned object has methods to access information related to the user.
-    user = twitter_bot.api.get_user('perry430')
-    print(user.name, user.description, user.location)
-    for follower in user.followers():
-        print(follower.name)
+
+    # user = twitter_bot.api.get_user('perry430')
+    # print(user.name, user.description, user.location)
+    # for follower in user.followers():
+    #     print(follower.name)
 
     # Like the most recent tweet on your timeline
-    latest_tweet = twitter_bot.timeline[0]
-    # twitter_bot.api.destroy_favorite(latest_tweet.id)
-    print(twitter_bot.api.favorites())
+    # latest_tweet = twitter_bot.timeline[0]  # Find latest tweet
+    # twitter_bot.api.create_favorite(latest_tweet.id)  # Like the latest tweet
+    # twitter_bot.api.destroy_favorite(latest_tweet.id)  # remove like from latest tweet
+    # print(twitter_bot.api.favorites())  # List liked tweets?
+
+    # Start a listener for global tweets. Filter on given words and language. Prints to stdout.
+    twitter_bot.start_stream_listener()  # Pass our api object to the stream listener class
+    twitter_bot.stream.filter(track=['Sweden'], languages=['en'])  # Starts the stream listener.
+    # matches on the keywords go to the "twitter_bot.stream.on_status()" function for processing.
