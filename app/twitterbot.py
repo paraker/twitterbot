@@ -63,3 +63,8 @@ if __name__ == '__main__':
     print(user.name, user.description, user.location)
     for follower in user.followers():
         print(follower.name)
+
+    # Like the most recent tweet on your timeline
+    latest_tweet = twitter_bot.timeline[0]
+    # twitter_bot.api.destroy_favorite(latest_tweet.id)
+    print(twitter_bot.api.favorites())
