@@ -24,8 +24,7 @@ class TwitterBot:
         )
 
     def create_api_object(self):
-        # Create API object. If twitter rate limit is applied,
-        # wait and print a message for us!
+        # Create API object. If twitter rate limit is applied, wait and print a message for us!
         self.api = tweepy.API(
             self._auth,
             wait_on_rate_limit=True,
@@ -63,8 +62,7 @@ if __name__ == '__main__':
     # twitter_bot.api.update_status("Test Tweet from Tweepy Python")
 
     # get_user() returns an object containing user details.
-    # This returned object has methods to access information
-    # related to the user.
+    # This returned object has methods to access information related to the user.
     user = twitter_bot.api.get_user('perry430')
     print(user.name, user.description, user.location)
     for follower in user.followers():
