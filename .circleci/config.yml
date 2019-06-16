@@ -13,10 +13,11 @@ jobs:  # Any jobs we want circleci to do
     steps:
       - checkout  # Checkout repo from github
 
-      # Download and cache dependencies
+      # Download cached dependencies?
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
 
+      # This is run regardless of the above, should set a when statement?
       - run:
           name: install dependencies  # Just a name
           # Create virtual environment
@@ -25,6 +26,7 @@ jobs:  # Any jobs we want circleci to do
           command: |
             pipenv install
 
+      # Save cache of dependencies in /home/circleci/repo/.venv
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
@@ -37,7 +39,7 @@ jobs:  # Any jobs we want circleci to do
           # Run our custom tests, only on our calculator file, include file coverage. Look in our calculator.py only
           command: |
             . $(pipenv --venv)/bin/activate
-            flake8 app/*.py --statistics
+            flake8 app/*.py tests/*.py --statistics
 
 workflows:
   version: 2
