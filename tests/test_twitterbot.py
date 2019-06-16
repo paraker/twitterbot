@@ -1,1 +1,3 @@
-print('testing')
+from app.twitterbot import TwitterBot
+import pytest
+
