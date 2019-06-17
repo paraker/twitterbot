@@ -11,6 +11,9 @@ class TwitterBot:
         self.tweets_listener = None
         self.stream = None
 
+    def __repr__(self):
+        return f'Class object of class: {self.__class__.__name__}'
+
     def twitter_auth(self):
         # Authenticate to Twitter
         self._auth = tweepy.OAuthHandler(
@@ -60,7 +63,8 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, tweet):
         print(f'{tweet.user.name}:{tweet.text}')
         self.counter += 1
-        if self.counter > 1:
+        self.news = None
+        if self.counter > 3:
             return False
 
     def on_error(self, status_code):
@@ -102,6 +106,8 @@ if __name__ == '__main__':
     # print(twitter_bot.api.favorites())  # List liked tweets?
 
     # Start a listener for global tweets. Filter on given words and language. Prints to stdout.
-    twitter_bot.start_stream_listener()  # Pass our api object to the stream listener class
-    twitter_bot.stream.filter(track=['Sweden'], languages=['en'])  # Starts the stream listener.
+    # twitter_bot.start_stream_listener()  # Pass our api object to the stream listener class
+    # twitter_bot.stream.filter(track=['burger', 'Burger'], languages=['en'])  # Starts
+    # the stream
+    # listener.
     # matches on the keywords go to the "twitter_bot.stream.on_status()" function for processing.

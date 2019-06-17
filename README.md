@@ -1,4 +1,4 @@
-# twitterbot
+# Twitterbot
 Load your twitter API keys into keys.json under /app
 
 # Names
@@ -7,6 +7,7 @@ Load your twitter API keys into keys.json under /app
 * A favorite is a like.
 
 # API object methods
+Some sample methods used in this project
 
 * Method for user timelines
 
@@ -20,10 +21,5 @@ Load your twitter API keys into keys.json under /app
 
         api.get_user(<user>)
 
-* Method for followers
-* Method for your account
-* Method for likes
-* Method for blocking users
-* Method for searches
-* Method for trends
-* Method for streaming
+# Stream listener
+Stream listener is used to listen for keywords, anywhere on twitter.
