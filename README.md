@@ -1,3 +1,7 @@
+# TODO
+Upload container image to AWS as per 
+[https://realpython.com/twitter-bot-python-tweepy/#deploying-bots-to-a-server-using-docker]
+
 # Twitterbot
 Load your twitter API keys into keys.json under /app
 
