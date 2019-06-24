@@ -1,5 +1,4 @@
 import tweepy
-import json
 import os
 
 
@@ -15,7 +14,6 @@ class TwitterBot:
         self._keys['consumer_secret'] = os.getenv('CONSUMER_SECRET')
         self._keys['access_token'] = os.getenv('ACCESS_TOKEN')
         self._keys['access_token_secret'] = os.getenv('ACCESS_TOKEN_SECRET')
-        print(self._keys['consumer_key'])
 
     def __repr__(self):
         return f'Class object of class: {self.__class__.__name__}'
@@ -80,18 +78,12 @@ class MyStreamListener(tweepy.StreamListener):
 
 
 if __name__ == '__main__':
-    # Read authentication keys
-    # with open('keys.json', 'r') as file:
-    #     auth_keys = json.load(file)
-
-    print(os.getenv("CONSUMER_KEY"))
-
-    # twitter_bot = TwitterBot()  # Create twitterbot object
-    # twitter_bot.twitter_auth()  # Auth with twitter
-    # twitter_bot.create_api_object()  # Create api object
+    twitter_bot = TwitterBot()  # Create twitterbot object
+    twitter_bot.twitter_auth()  # Auth with twitter
+    twitter_bot.create_api_object()  # Create api object
 
     # Check credentials
-    # print(twitter_bot.verify_twitter_credentials())
+    print(twitter_bot.verify_twitter_credentials())
 
     # Get my profile's timeline's latest tweets
     # twitter_bot.print_home_timeline()
