@@ -12,8 +12,7 @@ def test_twitterbot(bot):
 
 
 def test_twitter_auth(bot):
-    with pytest.raises(TypeError):
-        bot.twitter_auth()
+    bot.twitter_auth()
 
 
 def test_create_api_object(bot):
