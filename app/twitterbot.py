@@ -1,15 +1,21 @@
 import tweepy
 import json
+import os
 
 
 class TwitterBot:
-    def __init__(self, keys):
-        self._keys = keys
+    def __init__(self):
         self._auth = None
         self.api = None
         self.timeline = None
         self.tweets_listener = None
         self.stream = None
+        self._keys = dict()
+        self._keys['consumer_key'] = os.getenv('CONSUMER_KEY')
+        self._keys['consumer_secret'] = os.getenv('CONSUMER_SECRET')
+        self._keys['access_token'] = os.getenv('ACCESS_TOKEN')
+        self._keys['access_token_secret'] = os.getenv('ACCESS_TOKEN_SECRET')
+        print(self._keys['consumer_key'])
 
     def __repr__(self):
         return f'Class object of class: {self.__class__.__name__}'
@@ -17,8 +23,8 @@ class TwitterBot:
     def twitter_auth(self):
         # Authenticate to Twitter
         self._auth = tweepy.OAuthHandler(
-            self._keys['consumer_api_key'],
-            self._keys['consumer_api_secret']
+            self._keys['consumer_key'],
+            self._keys['consumer_secret']
         )
         self._auth.set_access_token(
             self._keys['access_token'],
@@ -75,15 +81,17 @@ class MyStreamListener(tweepy.StreamListener):
 
 if __name__ == '__main__':
     # Read authentication keys
-    with open('keys.json', 'r') as file:
-        auth_keys = json.load(file)
+    # with open('keys.json', 'r') as file:
+    #     auth_keys = json.load(file)
 
-    twitter_bot = TwitterBot(auth_keys)  # Create twitterbot object
-    twitter_bot.twitter_auth()  # Auth with twitter
-    twitter_bot.create_api_object()  # Create api object
+    print(os.getenv("CONSUMER_KEY"))
+
+    # twitter_bot = TwitterBot()  # Create twitterbot object
+    # twitter_bot.twitter_auth()  # Auth with twitter
+    # twitter_bot.create_api_object()  # Create api object
 
     # Check credentials
-    print(twitter_bot.verify_twitter_credentials())
+    # print(twitter_bot.verify_twitter_credentials())
 
     # Get my profile's timeline's latest tweets
     # twitter_bot.print_home_timeline()
