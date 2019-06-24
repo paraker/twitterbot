@@ -4,7 +4,7 @@ import pytest
 
 @pytest.fixture
 def bot():
-    return TwitterBot(None)
+    return TwitterBot()
 
 
 def test_twitterbot(bot):
