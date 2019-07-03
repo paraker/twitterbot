@@ -106,8 +106,6 @@ if __name__ == '__main__':
     # print(twitter_bot.api.favorites())  # List liked tweets?
 
     # Start a listener for global tweets. Filter on given words and language. Prints to stdout.
-    # twitter_bot.start_stream_listener()  # Pass our api object to the stream listener class
-    # twitter_bot.stream.filter(track=['burger', 'Burger'], languages=['en'])  # Starts
-    # the stream
-    # listener.
+    twitter_bot.start_stream_listener()  # Pass our api object to the stream listener class
+    twitter_bot.stream.filter(track=['burger', 'Burger'], languages=['en'])  # Starts the stream listener.
     # matches on the keywords go to the "twitter_bot.stream.on_status()" function for processing.
